@@ -11,7 +11,7 @@ jobs:
     - name: Unzip Source Code
       run: |
         unzip "creative-hub (1) (1).zip" -d temp_extract
-        # ZIP ke andar wale asli folder ko dhoondh kar app_project mein move karna
+        mkdir app_project
         mv temp_extract/*/* app_project/ 2>/dev/null || mv temp_extract/* app_project/
         
     - name: Set up Java
@@ -23,6 +23,7 @@ jobs:
     - name: Build APK File
       run: |
         cd app_project
+        gradle wrapper
         chmod +x gradlew
         ./gradlew assembleDebug
         
