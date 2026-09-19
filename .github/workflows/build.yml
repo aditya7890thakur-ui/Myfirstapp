@@ -1,0 +1,31 @@
+name: Build Android APK
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+      
+    - name: Unzip Source Code
+      run: unzip "creative-hub (1) (1).zip" -d app_project
+      
+    - name: Set up Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'zulu'
+        java-version: '17'
+        
+    - name: Build APK File
+      run: |
+        cd app_project
+        chmod +x gradlew
+        ./gradlew assembleDebug
+        
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: Mera-App-APK
+        path: app_project/app/build/outputs/apk/debug/*.apk
+
