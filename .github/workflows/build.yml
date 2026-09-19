@@ -17,6 +17,11 @@ jobs:
         distribution: 'zulu'
         java-version: '17'
         
+    - name: Generate Debug Keystore
+      run: |
+        cd app_project
+        keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "C=US, O=Android, CN=Android Debug"
+        
     - name: Build APK File
       run: |
         cd app_project
@@ -29,4 +34,5 @@ jobs:
       with:
         name: Mera-App-APK
         path: app_project/app/build/outputs/apk/debug/*.apk
+
 
