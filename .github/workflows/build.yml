@@ -9,11 +9,8 @@ jobs:
       uses: actions/checkout@v4
       
     - name: Unzip Source Code
-      run: |
-        unzip "creative-hub (1) (1).zip" -d temp_extract
-        mkdir app_project
-        mv temp_extract/*/* app_project/ 2>/dev/null || mv temp_extract/* app_project/
-        
+      run: unzip "creative-hub (1) (1).zip" -d app_project
+      
     - name: Set up Java
       uses: actions/setup-java@v4
       with:
@@ -32,3 +29,4 @@ jobs:
       with:
         name: Mera-App-APK
         path: app_project/app/build/outputs/apk/debug/*.apk
+
